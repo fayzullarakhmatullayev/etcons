@@ -2,7 +2,16 @@
   <PageBreadcrumb :items="breadcrumb" />
   <div class="container">
     <h2 class="title">Date Time Picker</h2>
-    <Calendar id="calendar-timeonly" v-model="time" showIcon timeOnly />
+    <div class="date-time-picker">
+      <Calendar
+        id="calendar-timeonly"
+        v-model="time"
+        @today-click="todayClick"
+        showButtonBar
+        showIcon
+        timeOnly
+      />
+    </div>
   </div>
 </template>
 
@@ -11,6 +20,9 @@ import { reactive, ref } from "vue";
 const breadcrumb = reactive([{ label: "Date Time Picker", to: "/date-time-picker" }]);
 
 const time = ref(new Date());
+const todayClick = (): void => {
+  time.value = new Date();
+};
 </script>
 
 <style lang="scss">

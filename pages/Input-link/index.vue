@@ -3,31 +3,29 @@
   <div class="container">
     <h2 class="title">Поле Link</h2>
     <div class="web-link">
-      <InputText
-        v-model="url"
-        type="text"
-        class="web-link__input"
-        placeholder="https://"
-        @blur="inputBlurHandler('url')"
-        v-if="!isTitle"
-      />
-      <InputText
-        v-model="title"
-        type="text"
-        class="web-link__input"
-        placeholder="Title"
-        @blur="inputBlurHandler('title')"
-        v-else="isTitle"
-      />
+      <label v-if="!isTitle"
+        ><p>URL</p>
+        <InputText
+          v-model="url"
+          type="text"
+          class="web-link__input"
+          placeholder="https://"
+          @blur="inputBlurHandler('url')"
+        />
+      </label>
+      <label v-else="isTitle">
+        <p>Title</p>
+        <InputText
+          v-model="title"
+          type="text"
+          class="web-link__input"
+          placeholder="Title"
+          @blur="inputBlurHandler('title')"
+        />
+      </label>
       <ul class="web-link__list" v-if="links.length > 0">
-        <li v-for="(link, idx) in links">
-          <a
-            class="link__url"
-            :key="`${link}_${idx}`"
-            :href="`https://${link.url}`"
-            target="_blank"
-            >{{ link.title }}</a
-          >
+        <li v-for="link in links">
+          <a class="link__url" :key="link.id" :href="link.url" target="_blank">{{ link.title }}</a>
           <Button @click="updateLink(link)" icon="pi pi-pencil"></Button>
         </li>
       </ul>
@@ -40,19 +38,19 @@ import { ref, reactive } from "vue";
 
 interface ILink {
   url: string;
-  id: number;
   title: string;
+  id: number;
 }
 type LinkType = "url" | "title";
 
-const url = ref("");
-const title = ref();
+const url = ref("https://");
+const title = ref("");
 const isTitle = ref(false);
 const breadcrumb = reactive([{ label: "Поле Link", to: "/input-link" }]);
 
 const links = ref<ILink[]>([]);
 
-const inputBlurHandler = (type: LinkType) => {
+const inputBlurHandler = (type: LinkType): void => {
   if (type === "url") {
     if (url.value) {
       isTitle.value = true;
@@ -65,13 +63,13 @@ const inputBlurHandler = (type: LinkType) => {
         title: title.value,
       });
       title.value = "";
-      url.value = "";
+      url.value = "https://";
       isTitle.value = false;
     }
   }
 };
 
-const updateLink = (link: ILink) => {
+const updateLink = (link: ILink): void => {
   isTitle.value = false;
   if (link) {
     url.value = link.url;
