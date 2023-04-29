@@ -1,5 +1,4 @@
 <template>
-  <PageBreadcrumb />
   <div class="container">
     <div class="home">
       <h2 class="title">тестовое задание</h2>
