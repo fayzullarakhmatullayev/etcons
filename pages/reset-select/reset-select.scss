@@ -1,0 +1,9 @@
+.reset-select {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  .p-multiselect {
+    max-width: 500px;
+    width: 100%;
+  }
+}
