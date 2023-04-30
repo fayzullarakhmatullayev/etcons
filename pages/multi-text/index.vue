@@ -32,7 +32,12 @@ const columns = [
 
 const fetchText = async (): Promise<void> => {
   try {
-    const response = await axios.get("text.json");
+    const response = await axios.get("text.json", {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
 
     const text = response.data.text.split("[");
 
