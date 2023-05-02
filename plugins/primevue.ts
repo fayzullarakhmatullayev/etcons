@@ -8,6 +8,8 @@ import Calendar from "primevue/calendar";
 import MultiSelect from "primevue/multiselect";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+import Tag from "primevue/tag";
+import Menu from "primevue/menu";
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(PrimeVue, {
@@ -21,4 +23,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component("MultiSelect", MultiSelect);
   nuxtApp.vueApp.component("DataTable", DataTable);
   nuxtApp.vueApp.component("Column", Column);
+  nuxtApp.vueApp.component("Tag", Tag);
+  nuxtApp.vueApp.component("Menu", Menu);
 });

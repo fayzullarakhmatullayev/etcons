@@ -21,7 +21,8 @@ interface IText {
   text: string;
 }
 import { reactive, ref } from "vue";
-import axios from "axios";
+import { TableText } from "@/service/TableText";
+
 const breadcrumb = reactive([{ label: "Многострочный текст в ячейке", to: "/multi-text" }]);
 const data = ref<IText[]>([]);
 
@@ -30,32 +31,19 @@ const columns = [
   { field: "text", header: "Текст" },
 ];
 
-const fetchText = async (): Promise<void> => {
-  try {
-    const response = await axios.get("text.json", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
+const prepareText = (): void => {
+  const text = TableText.text.split("[");
 
-    const text = response.data.text.split("[");
-
-    data.value = text
-      .map((item: string) => {
-        const time = `[${item.slice(0, 8)}]`;
-        const text = item.slice(9).trim();
-        return { time, text };
-      })
-      .filter((item: IText) => item.text !== "" || item.text !== "");
-  } catch (error) {
-    console.error(error);
-  }
+  data.value = text
+    .map((item: string) => {
+      const time = `[${item.slice(0, 8)}]`;
+      const text = item.slice(9).trim();
+      return { time, text };
+    })
+    .filter((item: IText) => item.text !== "" || item.text !== "");
 };
 
-onMounted(async () => {
-  await fetchText();
-});
+onMounted(prepareText);
 </script>
 
 <style lang="scss">

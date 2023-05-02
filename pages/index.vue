@@ -19,6 +19,11 @@
   </div>
 </template>
 
+<script lang="ts" setup>
+import { ref } from "vue";
+const value = ref(null);
+</script>
+
 <style lang="scss" scoped>
 .home {
   .links {
